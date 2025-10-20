@@ -1,6 +1,7 @@
 // Importar pacotes/bibliotecas
 import express from "express";
 import dotenv from "dotenv";
+import animaisRoutes from './src/routes/animaisRoutes.js'
 
 
 // Criar aplicação com Express e configurar para aceitar JSON
@@ -18,6 +19,7 @@ app.get("/", (req, res) => {
 
 
 // Aqui vão todas suas Rotas
+app.use('/animais', animaisRoutes)
 
 
 // Iniciar servidor escutando na porta definida
