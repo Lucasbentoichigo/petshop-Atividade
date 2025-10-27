@@ -7,6 +7,7 @@ const router = Router();
 router.get("/", animaisController.listarTodos);
 // Rota do GetById
 router.get("/:id", animaisController.listarUm)
-
+//Rota do Post
+router.post("/", animaisController.criar)
 
 export default router;

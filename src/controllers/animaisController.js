@@ -50,3 +50,35 @@ export const listarUm = async (req, res) => {
         })
     }
 }
+
+export const criar = async (req,res) => {
+    try {
+        const { nome, especie, idade, dono } = req.body
+
+        const dado = req.body
+
+        //Validação campos obrigatórios
+        const camposObrigatorios = ['nome', 'especie', 'idade', 'dono'];
+
+        const faltando = camposObrigatorios.filter(campo => !dado[campo]);
+
+        if (faltando.length > 0) {
+            return res.status(400).json({
+                erro: `Os seguintes campos são obrigatórios: ${faltando.join(', ')}.`
+            });
+        }
+
+        const novoAnimal = await PetModel.create(dado);
+
+        res.status(201).json({
+            mensagem: 'Pet criado com sucesso!',
+            pet: novoAnimal
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            erro: 'Erro ao criar Pet',
+            detalhes: error.message
+        })
+    }
+}
