@@ -82,3 +82,60 @@ export const criar = async (req,res) => {
         })
     }
 }
+
+export const apagar = async (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+
+        const animalExiste = await PetModel.findById(id);
+
+        if (!animalExiste) {
+            return res.status(404).json({
+                erro: 'Pet não encontrado com esse id',
+                id: id
+            })
+        }
+
+        await PetModel.deletePet(id)
+
+        res.status(200).json({
+            mensagem: 'Pet removido com sucesso',
+            animalRemovido: animalExiste
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            erro: 'Erro ao apagar pet!',
+            detalhes: error.message
+        })
+    }
+}
+
+export const atualizar = async (req, res) => {
+    try {
+        const id = parseInt(req.params.id);
+        const dados = req.body;
+
+        const animalExiste = await PetModel.findById(id);
+
+        if (!animalExiste) {
+            return res.status(404).json({
+                erro: 'Pet não encontrado com esse id',
+                id: id
+            })
+        }
+
+        const animalAtualizado = await PetModel.update(id, dados);
+
+        res.status(200).json({
+            mensagem: 'Pet atualizado com sucesso',
+            pet: animalAtualizado
+        })
+
+    } catch (error) {
+        res.status(500).json({
+            erro: 'Erro ao atualizar animais',
+            detalhes: error.message
+        })
+    }
+}

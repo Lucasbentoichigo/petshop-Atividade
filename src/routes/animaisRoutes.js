@@ -9,5 +9,9 @@ router.get("/", animaisController.listarTodos);
 router.get("/:id", animaisController.listarUm)
 //Rota do Post
 router.post("/", animaisController.criar)
+// Rota Delete
+router.delete("/:id", animaisController.apagar)
+//Rota update
+router.put("/:id", animaisController.atualizar)
 
 export default router;
